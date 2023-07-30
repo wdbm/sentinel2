@@ -58,9 +58,11 @@ import docopt
 import subprocess
 import time
 
-__version__  = "2023-03-18T0213Z"
+__version__  = "2023-07-30T2222Z
 
 options = docopt.docopt(__doc__, version = __version__)
+
+last_msg_time = 0
 
 phone_number    = None if options["--phone_number"].lower() == "none" else\
                           options["--phone_number"]
@@ -80,9 +82,14 @@ def send_signal_message(
     recipient_number = phone_number,
     message          = "motion detected"
     ):
+    global last_msg_time
+    current_time = time.time()
+    if current_time - last_msg_time < 30:
+        return False
     try:
         cmd = f'signal-cli -a {sender_number} send {recipient_number} -m "{message}"'
         output = subprocess.check_output(cmd, shell=True, stderr=subprocess.STDOUT)
+        last_msg_time = current_time
         return True
     except Exception as e:
         print(f"error sending Signal message: {e}")
