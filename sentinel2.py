@@ -58,7 +58,7 @@ import docopt
 import subprocess
 import time
 
-__version__  = "2023-07-30T2222Z
+__version__  = "2023-09-05T1646Z"
 
 options = docopt.docopt(__doc__, version = __version__)
 
