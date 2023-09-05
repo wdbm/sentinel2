@@ -3,6 +3,7 @@
 ## setup Ubuntu 22.04
 
 ```Bash
+sudo pip install docopt
 sudo apt update
 sudo apt -y install\
     v4l-utils      \
