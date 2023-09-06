@@ -55,10 +55,11 @@ options:
 import cv2
 import docopt
 
+import socket
 import subprocess
 import time
 
-__version__  = "2023-09-05T1646Z"
+__version__  = "2023-09-06T1614Z"
 
 options = docopt.docopt(__doc__, version = __version__)
 
@@ -69,6 +70,7 @@ phone_number    = None if options["--phone_number"].lower() == "none" else\
 threshold       =     int(options["--detection_threshold"])
 delay_launch    =     int(options["--launch_delay"])
 duration_record =     int(options["--record_duration"])
+host_name       = socket.gethostname()
 
 print(f'sentinel2 version {__version__}')
 print('press \'q\' to quit')
@@ -96,7 +98,7 @@ def send_signal_message(
         return False
 
 def actions_on_motion_detection():
-    message = time.strftime("%y-%m-%dT%H%M%S") + " motion detected"
+    message = time.strftime("%y-%m-%dT%H%M%S") + " " + host_name + " motion detected"
     print(message)
     if phone_number:
         send_signal_message(message=message)
@@ -142,7 +144,7 @@ if not devices:
 elif len(devices) == 1:
     selection = 0
 else:
-    print("Available camera devices:")
+    print("available camera devices:")
     for i, (name, paths) in enumerate(devices):
         print(f"{i}: {name}")
     while True:
@@ -157,7 +159,7 @@ else:
 
 print(f'waiting {delay_launch} s delay before launch')
 time.sleep(delay_launch)
-print('launching')
+print('launching sentinel2 on ' + host_name)
 
 # Open the selected camera device.
 paths = devices[selection][1]
