@@ -1,5 +1,9 @@
 # sentinel2
 
+# This program is a security monitoring program that uses video to detect      #
+# motion, that records motion video, and that attempts to communicate alerts   #
+# as configured.      
+
 ## setup Ubuntu 22.04
 
 ```Bash
