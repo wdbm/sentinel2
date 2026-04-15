@@ -62,7 +62,7 @@ import cv2
 import docopt
 import numpy as np
 
-__version__  = "2025-01-08T2222ZS"
+__version__  = "2026-04-15T2300Z"
 
 options = docopt.docopt(__doc__, version=__version__)
 
